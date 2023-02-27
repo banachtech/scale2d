@@ -1,12 +1,7 @@
 package main
 
 import (
-	"encoding/csv"
 	"flag"
-	"fmt"
-	"log"
-	"os"
-	"strconv"
 	"strings"
 )
 
@@ -47,4 +42,3 @@ func main() {
 	// write result to csv
 	array_to_csv(y, outfile)
 }
-
