@@ -1,9 +1,62 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
+	"log"
 	"math"
+	"os"
+	"strconv"
 )
+
+// log fatal errors
+func log_err(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// read in 2d float array from csv file
+// csv file has no headers
+func array_from_csv(filename string) [][]float64 {
+	f, err := os.Open(filename)
+	log_err(err)
+	defer f.Close()
+
+	r := csv.NewReader(f)
+	data, err := r.ReadAll()
+	log_err(err)
+
+	array2d := make([][]float64, len(data))
+	for i, v := range data {
+		array2d[i] = make([]float64, len(v))
+		for j, u := range v {
+			array2d[i][j], err = strconv.ParseFloat(u, 64)
+			log_err(err)
+		}
+	}
+	return array2d
+}
+
+// write array to csv file
+func array_to_csv(x [][]float64, filename string) {
+	f, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0755)
+	log_err(err)
+	defer f.Close()
+
+	w := csv.NewWriter(f)
+	s := make([][]string, len(x))
+	for i, v := range x {
+		s[i] = make([]string, len(v))
+		for j, u := range v {
+			s[i][j] = fmt.Sprintf("%v", u)
+		}
+	}
+	w.WriteAll(s)
+	if err := w.Error(); err != nil {
+		log.Fatal(err)
+	}
+}
 
 // skip nan values
 func skip_nan(x []float64) []float64 {
@@ -23,7 +76,7 @@ func square(x []float64) []float64 {
 		if math.IsNaN(v) {
 			y[i] = v
 		} else {
-			y[i] = v*v
+			y[i] = v * v
 		}
 	}
 	return y
