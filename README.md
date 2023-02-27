@@ -30,9 +30,9 @@ $\Omega_i = \{k: (i,k) \in \Omega\}$ and $\Omega^j = \{k: (k,j) \in \Omega\}$. T
 
 We stop the iteration when residual as defined below is suffiently close to zero.
 
-\begin{align*}
+$$
 R &= \sum_{i=1}^m \left[\frac{1}{n_i}\sum_{j \in \Omega_i}\tilde{X}_{ij}\right]^2 + \sum_{j=1}^n \left[\frac{1}{m_j}\sum_{i \in \Omega^j}\tilde{X}_{ij}\right]^2 \\ &+ \sum_{i=1}^m \log^2\left(\frac{1}{n_i}\sum_{j \in \Omega_i}\tilde{X}_{ij}^2\right) + \sum_{j=1}^n \log^2\left(\frac{1}{m_j}\sum_{i \in \Omega^j}\tilde{X}_{ij}^2\right)
-\end{align*}
+$$
 
 ## Usage
 The executable scale2d is compiled for MacOS.
