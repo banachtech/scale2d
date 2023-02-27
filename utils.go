@@ -147,3 +147,23 @@ func summary(x [][]float64) {
 	fmt.Printf("mean of row vars = %f\n", mean(row_vars))
 	fmt.Printf("mean of col vars = %f\n", mean(col_vars))
 }
+
+// add scalar to vector
+func add_scalar(x []float64, a float64) []float64 {
+	y := make([]float64, len(x))
+	for i, v := range x {
+		y[i] = v + a
+	}
+	return y
+}
+
+// count non nans
+func value_counts(x []float64) int {
+	count := 0
+	for _, v := range x {
+		if !math.IsNaN(v) {
+			count++
+		}
+	}
+	return count
+}
